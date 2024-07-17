@@ -57,6 +57,13 @@ class array_list():
         self.list = self.new_list_p
         return self.list
 
+    def copy(self):
+        self.copy_list = []
+        for i in range(0, len(self.list)):
+            self.copy_list.append(self.list[i])
+        return self.copy_list
+
+
 
 ary = array_list()
 ary.append("hello")
