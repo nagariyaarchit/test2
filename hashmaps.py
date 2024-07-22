@@ -1,40 +1,43 @@
 class HashMaps:
     def __init__(self):
         self.size = 10
-        self.map = [[] for i in range(0,self.size)]
-        # print(self.map)
+        self.arr = [[] for i in range(0,self.size)]
+    
+    def get_hash(self, key):
+        h = 0
+        for char in key:
+            h += ord(char)
+        return h % self.size
+    
+    def __getitem__(self,key):
+        h = self.get_hash(key)
+        for element in self.arr[h]:
+            if element[0] == key:
+                print(element[1])
 
-    def hashing_function(self, key):
-        hashed_key =  hash(key) % self.size
-        return hashed_key
+    def __setitem__(self, key, Val):
+        h = self.get_hash(key)
+        found = False
+        for idx, element in enumerate(self.arr[h]):
+            if len(element)==2 and element[0] == key:
+                self.arr[h][idx] = (key,Val)
+                found = True
+                break
+        if not found:
+            self.arr[h].append((key,Val))
 
-    def set(self, key, value):
-        hash_key = self.hashing_function(key)
-        key_exists = False
-        slot = self.map[hash_key]
-        for i, kv in range(0,len(slot)):
-            k, v = kv
-            if key == k:
-                key_exists = True 
-        if key_exists:
-            slot[i] = ((key,value))
-        else:
-            slot.append((key,value))
+    def __delitem__(self,key):
+         h = self.get_hash(key)
+         for index, element in enumerate(self.arr[h]):
+             if element[0] == key:
+                del self.arr[h][index]
 
-    def get(self, key):
-        hash_key = self.hashing_function(key)
-        slot = self.map[hash_key]
-        for kv in slot:
-            k, v = kv
-            if key == k:
-                return v
-            else:
-                print("key does not exist")
-
-h = HashMaps()
-h.set("Ontario", "Toronto")
-h.set("Britishcolumbia", "Vancouver")
-h.set("Quebec", "Montreal")
-
-print(h.map)
-
+t = HashMaps()
+t["march 6"] = 128
+t["march 6"] = 78
+t["march 9"] =67
+t["march 8"] = 4
+t["march 17"] = 459
+print(t.arr)
+del t["march 8 "]
+print(t.arr)
