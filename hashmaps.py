@@ -35,9 +35,9 @@ class HashMaps:
 t = HashMaps()
 t["march 6"] = 128
 t["march 6"] = 78
-t["march 9"] =67
+t["march 9"] = 67
 t["march 8"] = 4
 t["march 17"] = 459
 print(t.arr)
-del t["march 8 "]
+del t["march 8"]
 print(t.arr)
